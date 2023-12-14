@@ -27,7 +27,6 @@ const ChooseLocation: FC = () => {
         setvalue2(poiaddressFromLocal);
         localStorage.setItem('value2', poiaddressFromLocal);
       }
-      // 清除 'poiaddress' 值
       localStorage.removeItem('poiaddress');
     }
   }, []);

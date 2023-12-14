@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
+import { Button } from "@/components/ui/button"
 type SelectionOption = {
   label: string;
   value: string;
 };
 
 
-// 合并两个选项数组，因为我们希望它们在同一行显示
+//
 const options: SelectionOption[] = [
   { label: '跑腿', value: 'paotui' },
   { label: '微面', value: 'weimian' },
@@ -24,7 +24,7 @@ const options: SelectionOption[] = [
   { label: '9米6', value: '/9m6' },
   { label: '13米', value: '/13m8' },
   { label: '17米5', value: '/17m8' },
-  // ... 其他尺寸选项
+
 ];
 
 const SelectionBar: React.FC = () => {
@@ -118,8 +118,8 @@ const SelectionBar: React.FC = () => {
       </div>
       <div className={`bg-[#f7f7f8] h-[266px] relative transition-transform duration-500 ${isTransitioning ? 'translate-x-[-100%]' : ''}`}>
         {displayImage && <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" alt='Display' src={displayImage} />}
-        <button onClick={handleNext} className='absolute top-1/2 right-[0.05rem] mr-[-10px] pr-0 -translate-x-1/2 -translate-y-1/2 '> &gt;</button>
-        <button onClick={handleLast} className='absolute top-1/2 left-2  -translate-x-1/2 -translate-y-1/2 '>a</button>
+        <Button onClick={handleNext} className='absolute top-1/2 right-[0.05rem] mr-[-10px] pr-0 -translate-x-1/2 -translate-y-1/2 'variant="ghost"> &gt;</Button>
+        <Button onClick={handleLast} className='absolute top-1/2 left-2  -translate-x-1/2 -translate-y-1/2 ' variant="ghost">&lt;</Button>
       </div>
     </div>
   );
