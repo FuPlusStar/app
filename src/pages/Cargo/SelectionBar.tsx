@@ -118,8 +118,8 @@ const SelectionBar: React.FC = () => {
       </div>
       <div className={`bg-[#f7f7f8] h-[266px] relative transition-transform duration-500 ${isTransitioning ? 'translate-x-[-100%]' : ''}`}>
         {displayImage && <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" alt='Display' src={displayImage} />}
-        <Button onClick={handleNext} className='absolute top-1/2 right-[0.05rem] mr-[-10px] pr-0 -translate-x-1/2 -translate-y-1/2 'variant="ghost"> &gt;</Button>
-        <Button onClick={handleLast} className='absolute top-1/2 left-2  -translate-x-1/2 -translate-y-1/2 ' variant="ghost">&lt;</Button>
+        <button onClick={handleNext} className='absolute top-1/2 right-[0.05rem] mr-[-10px] pr-0 -translate-x-1/2 -translate-y-1/2 '> &gt;</button>
+        <button onClick={handleLast} className='absolute top-1/2 left-2  -translate-x-1/2 -translate-y-1/2 ' >&lt;</button>
       </div>
     </div>
   );
