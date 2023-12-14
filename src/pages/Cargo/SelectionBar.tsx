@@ -31,12 +31,21 @@ const SelectionBar: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>(options[0].value);
   const [displayImage, setDisplayImage] = useState<string>('');
   const navigate = useNavigate();
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
+  const changeImage = async (newOptionValue: string) => {
+    setIsTransitioning(true); // 开始过渡
+    setTimeout(() => {
+      loadDisplayImage(newOptionValue);
+      setIsTransitioning(false); // 结束过渡
+    }, 300); //过渡时间
+  };
   useEffect(() => {
     // 初始化时加载默认图片
     loadDisplayImage(options[0].value);
   }, []);
 
+  //设置加载的图片
   const loadDisplayImage = async (imageValue: string) => {
     try {
       const imageModule = await import(`../../assets/images/${imageValue}.png`);
@@ -54,29 +63,41 @@ const SelectionBar: React.FC = () => {
       setSelectedOption(option.value);
       loadDisplayImage(option.value);
     }
+    changeImage(option.value);
   };
+  //上一个按钮
   const handleNext = () => {
     const currentIndex = options.findIndex((option) => option.value === selectedOption);
-    const nextIndex = (currentIndex + 1) % options.length; // Calculate the next index in a circular manner
+    const nextIndex = (currentIndex + 1) % options.length; // 计算下一个索引
     const nextOption = options[nextIndex];
 
     if (nextOption.value.startsWith('/')) {
       navigate(nextOption.value);
     } else {
-      setSelectedOption(nextOption.value);
-      loadDisplayImage(nextOption.value);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setSelectedOption(nextOption.value);
+        loadDisplayImage(nextOption.value);
+        setIsTransitioning(false);
+      }, 300);
     }
   };
+
+  //下一个的按钮
   const handleLast = () => {
     const currentIndex = options.findIndex((option) => option.value === selectedOption);
-    const lastIndex = (currentIndex - 1 + options.length) % options.length; // Calculate the previous index in a circular manner
+    const lastIndex = (currentIndex - 1 + options.length) % options.length; // 计算上一个索引
     const lastOption = options[lastIndex];
 
     if (lastOption.value.startsWith('/')) {
       navigate(lastOption.value);
     } else {
-      setSelectedOption(lastOption.value);
-      loadDisplayImage(lastOption.value);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setSelectedOption(lastOption.value);
+        loadDisplayImage(lastOption.value);
+        setIsTransitioning(false);
+      }, 300);
     }
   };
   return (
@@ -95,8 +116,8 @@ const SelectionBar: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className={'bg-[#f7f7f8] h-[266px] relative  '}>
-        {displayImage && <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"   alt='Display' src={displayImage} />}
+      <div className={`bg-[#f7f7f8] h-[266px] relative transition-transform duration-500 ${isTransitioning ? 'translate-x-[-100%]' : ''}`}>
+        {displayImage && <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" alt='Display' src={displayImage} />}
         <button onClick={handleNext} className='absolute top-1/2 right-[0.05rem] mr-[-10px] pr-0 -translate-x-1/2 -translate-y-1/2 '> &gt;</button>
         <button onClick={handleLast} className='absolute top-1/2 left-2  -translate-x-1/2 -translate-y-1/2 '>a</button>
       </div>

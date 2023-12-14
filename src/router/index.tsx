@@ -6,7 +6,7 @@ import Moving from '@/pages/Moving.tsx';
 import NotFound from '@/pages/NotFound.tsx';
 import InterurbanCoach from '@/pages/InterurbanCoach.tsx';
 import ColdCar from '@/pages/ColdCar.tsx';
-
+import MapPicker from '@/components/map.tsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -39,5 +39,9 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/map',
+    element: <MapPicker />
+  }
 ]);
 export default router;
